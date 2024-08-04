@@ -15,7 +15,7 @@ const Tour = ({ tour, onDelete }) => {
         {isExpanded ? tour.info : `${tour.info.substring(0, 200)}...`}
       </p>
       <button onClick={toggleDescription}>
-        {isExpanded ? "See less" : "See more"}
+        {isExpanded ? "See less" : "Show more"}
       </button>
       <button onClick={() => onDelete(tour.id)} style={{ marginLeft:
         '20px', color: 'white', backgroundColor: 'red' }}>
