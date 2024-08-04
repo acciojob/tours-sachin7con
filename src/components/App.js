@@ -1,14 +1,12 @@
-// SGN ONS JSLV JSR JBB JMD JSM JSRK 
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Tours from './Tours';
+import Loading from './Loading';
 
-
-let initialTours = [ 
-    
-  {
+const initialTours = [ 
+  { 
     "id": "rec6d6T3q5EBIdCfD",
     "name": "Best of Paris in 7 Days Tour",
-    "info": "Paris is synonymous with the finest things that culture can offer — in art, fashion, food, literature, and ideas. On this tour, your Paris-savvy Rick Steves guide will immerse you in the very best of the City of Light: the masterpiece-packed Louvre and Orsay museums, resilient Notre-Dame Cathedral, exquisite Sainte-Chapelle, and extravagant Palace of Versailles. You'll also enjoy guided neighborhood walks through the city's historic heart as well as quieter moments to slow down and savor the city's intimate cafés, colorful markets, and joie de vivre. Join us for the Best of Paris in 7 Days!",
+    "info": "Jay Shree Ganeshay Namah, Oum Namah Shivay, Jay Shree LakshmiVishnu Namah,Paris is synonymous with the finest things that culture can offer — in art, fashion, food, literature, and ideas. On this tour, your Paris-savvy Rick Steves guide will immerse you in the very best of the City of Light: the masterpiece-packed Louvre and Orsay museums, resilient Notre-Dame Cathedral, exquisite Sainte-Chapelle, and extravagant Palace of Versailles. You'll also enjoy guided neighborhood walks through the city's historic heart as well as quieter moments to slow down and savor the city's intimate cafés, colorful markets, and joie de vivre. Join us for the Best of Paris in 7 Days!",
     "image": "https://dl.airtable.com/.attachments/a0cd0702c443f31526267f38ea5314a1/2447eb7a/paris.jpg",
     "price": "1,995"
   },
@@ -42,39 +40,42 @@ let initialTours = [
   }
 ];
 
-
-
-
 const App = () => {
-  const [tours, setTours] = useState(initialTours);
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  
-const handleDelete = (id) => {
-  setTours(tours.filter(tour => tour.id != id));
-}
+  useEffect(() => {
+    // Simulating data fetch with setTimeout
+    setTimeout(() => {
+      setTours(initialTours);
+      setLoading(false);
+    }, 2000); // Simulate 2 seconds delay
+  }, []);
 
-const handleRefresh = () => {
-  setTours(initialTours);
-}
+  const handleDelete = (id) => {
+    setTours(tours.filter(tour => tour.id !== id));
+  };
 
+  const handleRefresh = () => {
+    setTours(initialTours);
+  };
 
-    return(
-      <main id="main" >Jay Shree Ganeshay Namah, Oum Namah Shivay, Jay Shree LakshmiVishnu Namah, <br></br>
-
-      {tours.length === 0 ? (
+  return (
+    <main id="main">
+      
+      {loading ? (
+        <Loading />
+      ) : tours.length === 0 ? (
         <div>
-        <p>No tours left</p>
-        <button onClick={ handleRefresh}>Refresh </button>
-         </div>
+          <p>No tours left</p>
+          <button onClick={handleRefresh}>Refresh</button>
+        </div>
       ) : (
         <Tours tours={tours} onDelete={handleDelete} />
       )}
-
-
-      </main>
-    );
-}
-
-
+    </main>
+  );
+};
 
 export default App;
